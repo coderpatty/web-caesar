@@ -1,3 +1,8 @@
+from flask import Flask, request, caesar
+app = Flask(__name__)
+
+app.config['DEBUG'] = True      # displays runtime errors in the browser, too
+"""
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,10 +23,21 @@
         </style>
     </head>
     <body>
+        add_form="""
         <form action="/action_page.php" method="post">
-            Rotate by:<input type="text" name="rot" value="0">
+            <rotate by:<input type="text" name="rot" value="0">
             <input type="textarea" name="text">
             <input type="submit">
         </form>
+    """    
     </body>
 </html>
+@app.route("/", methods=['POST'])
+def encrypt():
+    encrypt = request.form['encrypt'] 
+
+
+def index():
+    return form
+
+app.run()
