@@ -1,22 +1,35 @@
-# returns a number from 0-25 corresponding with a-z or A-Z
-def alphabet_position(letter):
-    if ord(letter) >= 97 and ord(letter) <= 122: # lowercase letter ascii values
-        return ord(letter) - 97
-    elif ord(letter) >= 65 and ord(letter) <= 90: # uppercase
-        return ord(letter) - 65
-
-# rotates a letter a specified number of times
-def rotate_character(char, rot):
-    if 97 <= ord(char) <= 122: # char is a lowercase letter
-        return chr((alphabet_position(char) + rot) % 26 + 97) # lowercase letter
-    elif 65 <= ord(char) <= 90: # char is a capital letter
-        return chr((alphabet_position(char) + rot) % 26 + 65) # uppercase
-    else:
-        return char
-
-
 def encrypt(text, rot):
-    scrambled_text = ""
-    for letter in text:
-        scrambled_text += rotate_character(letter, rot)
-    return scrambled_text
+    ret = ""
+
+    for character in text:
+        ret = ret + rotate_character(character,rot)
+
+    return ret
+
+def alphabet_position(letter):
+    ret = ord(letter) - alpha_offset(letter)
+
+    return ret
+
+def rotate_character(char, rot):
+    if alpha_offset(char) == 0:
+        ret = char
+    else:   
+        ret = chr(wrap(char, rot) + alpha_offset(char))
+
+    return ret
+
+def wrap(char, rot):
+    ret = (alphabet_position(char) + int(rot))%26
+
+    return ret
+
+def alpha_offset(char):
+    if ord(char) >= 65 and ord(char) <= 90:
+        ret = 65
+    elif ord(char) >= 97 and ord(char) <= 122:
+        ret = 97
+    else:
+        ret = 0
+    
+    return ret
